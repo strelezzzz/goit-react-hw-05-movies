@@ -11,7 +11,7 @@ const KEY = 'b6c47595cd552e39159b1bc0cf721807';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
-// повертає масив фільмів у тренді
+// список найпопулярніших фільмів на сьогодні
 const getTrendingMovies = async () => {
   try {
     const response = await axios.get(`/trending/movie/day?api_key=${KEY} `);
@@ -27,10 +27,10 @@ const getTrendingMovies = async () => {
   }
 };
 
-// повертає масив фільмів за запитом
+// пошук фільму за ключовим словом на сторінці фільмів
 const getSearchMovies = async query => {
   const response = await axios.get(
-    `/search/movie?api_key=${KEY}&language=en-US&query=${query}&`
+    `/search/movie?api_key=${KEY}&language=en-US&page=1&query=${query}&`
   );
   if (response) {
     const titles = await response.data.results.map(item => {
@@ -44,9 +44,36 @@ const getSearchMovies = async query => {
   return await Promise.reject(new Error('Somthing goes wrong'));
 };
 
+// запит повної інформації про фільм для сторінки кінофільму
+const getMovieDetails = async id => {
+  try {
+    const response = await axios.get(
+      `movie/${id}?api_key=${KEY}7&language=en-US? `
+    );
+    const titles = await response.data.map(item => {
+      return {
+        title: item.title,
+        id: item.id,
+        genres: item.genres,
+        overview: item.overview,
+        poster_path: item.poster_path,
+        release_date: item.release_date,
+        vote_average: item.vote_average,
+      };
+    });
+    return titles;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+// запит інформації про акторський склад для сторінки кінофільму
+
+// запит оглядів для сторінки кінофільму
+
 const api = {
   getTrendingMovies,
   getSearchMovies,
+  getMovieDetails,
 };
 
 export default api;

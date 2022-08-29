@@ -3,12 +3,13 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import api from 'services/API-service';
 
 const Movies = () => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  console.log('location:', location);
-  const searchQuery = searchParams.get('search') ?? '';
+  // console.log('location:', location);
+
+  const searchQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
     searchQuery && api.getSearchMovies(searchQuery).then(setMovies);
@@ -16,18 +17,18 @@ const Movies = () => {
   }, [searchQuery]);
 
   const handleChangeInput = e => {
-    setSearch(e.currentTarget.value);
+    setQuery(e.currentTarget.value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (search.trim === '') {
+    if (query.trim === '') {
       return alert('Input query');
     }
-    api.getSearchMovies(search).then(setMovies);
-    setSearchParams(search);
+    api.getSearchMovies(query).then(setMovies);
+    setSearchParams(query);
     console.log('searchQuery_onSubmit:', searchQuery);
-    setSearch('');
+    setQuery('');
   };
 
   return (
@@ -40,7 +41,7 @@ const Movies = () => {
           autoFocus
           placeholder=""
           onChange={handleChangeInput}
-          value={search}
+          value={query}
         ></input>
       </form>
       <ul>
