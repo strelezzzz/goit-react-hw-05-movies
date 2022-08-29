@@ -11,8 +11,27 @@ const KEY = 'b6c47595cd552e39159b1bc0cf721807';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
-async function getTrendingMovies() {
-  const response = await axios.get(`/trending/movie/day?api_key=${KEY} `);
+// повертає масив фільмів у тренді
+const getTrendingMovies = async () => {
+  try {
+    const response = await axios.get(`/trending/movie/day?api_key=${KEY} `);
+    const titles = await response.data.results.map(item => {
+      return {
+        title: item.title,
+        id: item.id,
+      };
+    });
+    return titles;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// повертає масив фільмів за запитом
+const getSearchMovies = async query => {
+  const response = await axios.get(
+    `/search/movie?api_key=${KEY}&language=en-US&query=${query}&`
+  );
   if (response) {
     const titles = await response.data.results.map(item => {
       return {
@@ -20,14 +39,14 @@ async function getTrendingMovies() {
         id: item.id,
       };
     });
-
     return titles;
   }
-  return await Promise.reject(new Error(`Somthing goes wrong`));
-}
+  return await Promise.reject(new Error('Somthing goes wrong'));
+};
 
 const api = {
   getTrendingMovies,
+  getSearchMovies,
 };
 
 export default api;
