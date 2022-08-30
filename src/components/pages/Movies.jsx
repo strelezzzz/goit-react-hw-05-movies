@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import api from 'services/API-service';
 
 const Movies = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
+
+  // const location = useLocation();
   // console.log('location:', location);
 
   const searchQuery = searchParams.get('query') ?? '';
+  console.log('searchQuery:', searchQuery);
 
   useEffect(() => {
     searchQuery && api.getSearchMovies(searchQuery).then(setMovies);
-    console.log('searchQuery_onUseEffect:', searchQuery);
   }, [searchQuery]);
 
   const handleChangeInput = e => {
@@ -26,8 +27,9 @@ const Movies = () => {
       return alert('Input query');
     }
     api.getSearchMovies(query).then(setMovies);
-    setSearchParams(query);
-    console.log('searchQuery_onSubmit:', searchQuery);
+
+    setSearchParams({ query });
+
     setQuery('');
   };
 
