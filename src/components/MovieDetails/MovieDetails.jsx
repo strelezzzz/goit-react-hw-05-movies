@@ -1,12 +1,12 @@
 import api from 'services/API-service';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import Cast from 'components/Cast/Cast';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams('movieId');
-
+  const location = useLocation;
   // console.log('movieId:', movieId);
   // const location = useLocation();
   // const navigate = useNavigate();
@@ -47,7 +47,19 @@ const MovieDetails = () => {
             })
             .join(' ')}
       </p>
+      <hr
+      // style={{
+      //   color: 'green',
+      //   backgroundColor: 'red',
+      //   height: 5,
+      // }}
+      />
+      <h5>Additional Information</h5>
+      <Link to={`/movies/${movieId}/cast`} state={{ from: location }}>
+        <p>Cast</p>
+      </Link>
       <Cast />
+      <hr />
     </>
   );
 };
