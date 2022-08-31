@@ -57,6 +57,18 @@ const getMovieDetails = async id => {
   }
 };
 // запит інформації про акторський склад для сторінки кінофільму
+const getMovieCast = async id => {
+  try {
+    const response = await axios.get(
+      `movie/${id}/credits?api_key=${API_KEY}&language=en-US? `
+    );
+    const details = await response.data;
+    return details;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+// https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=b6c47595cd552e39159b1bc0cf721807&language=en-US
 
 // запит оглядів для сторінки кінофільму
 
@@ -64,6 +76,7 @@ const api = {
   getTrendingMovies,
   getSearchMovies,
   getMovieDetails,
+  getMovieCast,
 };
 
 export default api;

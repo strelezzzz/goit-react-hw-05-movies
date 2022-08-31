@@ -1,6 +1,7 @@
 import api from 'services/API-service';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Cast from 'components/Cast/Cast';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -46,6 +47,7 @@ const MovieDetails = () => {
             })
             .join(' ')}
       </p>
+      <Cast />
     </>
   );
 };
