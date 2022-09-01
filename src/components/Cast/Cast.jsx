@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import {} from 'react-router-dom';
-import api from 'services/API-service';
+// import api from 'services/API-service';
 const imageURL = 'https://image.tmdb.org/t/p/w200';
 const movieCast = {
   id: 629176,
@@ -443,15 +443,15 @@ const movieCast = {
 };
 
 const Cast = () => {
-  const [movieId, setMovieId] = useState(629176);
+  // const [movieId, setMovieId] = useState(629176);
 
   //   const movieCast = api.getMovieCast(movieId);
 
-  useEffect(() => {});
+  // useEffect(() => {});
 
   return (
     <>
-      <h2>Cast</h2>
+      {/* <h2>Cast</h2> */}
       <ul>
         {movieCast &&
           movieCast.cast.map(
@@ -463,6 +463,7 @@ const Cast = () => {
               </li>
             )
           )}
+        {/* <div>This is Test CAST</div> */}
       </ul>
     </>
   );

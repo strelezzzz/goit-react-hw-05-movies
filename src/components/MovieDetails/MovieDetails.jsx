@@ -1,7 +1,6 @@
 import api from 'services/API-service';
 import { useState, useEffect } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
-import Cast from 'components/Cast/Cast';
+import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -54,11 +53,21 @@ const MovieDetails = () => {
       //   height: 5,
       // }}
       />
-      <h5>Additional Information</h5>
-      <Link to={`/movies/${movieId}/cast`} state={{ from: location }}>
-        <p>Cast</p>
-      </Link>
-      <Cast />
+      <p>Additional Information</p>
+      <ul>
+        <li>
+          <Link to={`/movies/${movieId}/cast`} state={{ from: location }}>
+            Cast
+          </Link>
+        </li>
+        <li>
+          <Link to={`/movies/${movieId}/reviews`} state={{ from: location }}>
+            Reviews
+          </Link>
+        </li>
+      </ul>
+
+      <Outlet />
       <hr />
     </>
   );
