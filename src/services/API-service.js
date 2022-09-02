@@ -57,6 +57,7 @@ const getMovieDetails = async id => {
   }
 };
 // запит інформації про акторський склад для сторінки кінофільму
+// https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=b6c47595cd552e39159b1bc0cf721807&language=en-US
 const getMovieCast = async id => {
   try {
     const response = await axios.get(
@@ -68,15 +69,26 @@ const getMovieCast = async id => {
     console.log(error.message);
   }
 };
-// https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=b6c47595cd552e39159b1bc0cf721807&language=en-US
 
 // запит оглядів для сторінки кінофільму
+// https://api.themoviedb.org/3/movie/361743/reviews?api_key=b6c47595cd552e39159b1bc0cf721807
+
+const getMovieReviews = async id => {
+  try {
+    const response = await axios.get(`movie/${id}/reviews?api_key=${API_KEY}`);
+    const reviews = response.data;
+    return reviews;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 const api = {
   getTrendingMovies,
   getSearchMovies,
   getMovieDetails,
   getMovieCast,
+  getMovieReviews,
 };
 
 export default api;

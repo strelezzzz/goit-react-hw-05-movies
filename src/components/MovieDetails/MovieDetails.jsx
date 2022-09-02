@@ -23,14 +23,15 @@ const MovieDetails = () => {
 
   const imageURL = 'https://image.tmdb.org/t/p/w300';
 
+  const year = new Date(release_date).getFullYear();
+
   return (
     <>
       <button type="button" onClick={handleGoBack}>
         Go back
       </button>
       <h2>
-        {title}
-        {release_date}
+        {title}({year})
       </h2>
       {poster_path && <img src={imageURL + poster_path} alt={title} />}
       <p>User Score:{vote_average}</p>
