@@ -12,7 +12,7 @@ const Cast = () => {
   useEffect(() => {
     if (!movieId) return;
 
-    api.getMovieCast(movieId).then(setMovieCast);
+    api.getMovieCast(Number(movieId)).then(setMovieCast);
   }, [movieId]);
 
   return (
@@ -21,13 +21,13 @@ const Cast = () => {
       <ul>
         {movieCast &&
           movieCast.map(({ id, original_name, profile_path, character }) => (
-            <>
+            <div key={id}>
               <img src={imageURL + profile_path} alt={original_name} />
-              <li key={id}>
+              <li>
                 <p>{original_name}</p>
                 <p>{character}</p>
               </li>
-            </>
+            </div>
           ))}
         {/* <div>This is Test CAST</div> */}
       </ul>

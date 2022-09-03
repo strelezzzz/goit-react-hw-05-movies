@@ -3,9 +3,9 @@ import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import api from 'services/API-service';
 
 const Movies = () => {
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams('');
 
   const location = useLocation();
   console.log('location:', location);

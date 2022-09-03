@@ -1,6 +1,12 @@
 import api from 'services/API-service';
 import { useState, useEffect } from 'react';
-import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
+import {
+  Link,
+  useParams,
+  useLocation,
+  Outlet,
+  useNavigate,
+} from 'react-router-dom';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -8,14 +14,14 @@ const MovieDetails = () => {
   const location = useLocation;
   // console.log('movieId:', movieId);
   // const location = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
   const handleGoBack = () => {
-    window.location.href = '/';
+    navigate('/');
   };
 
   const { title, genres, overview, poster_path, release_date, vote_average } =

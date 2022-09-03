@@ -6,9 +6,9 @@ import api from 'services/API-service';
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
-  console.log(movieId);
+  console.log(typeof movieId);
   useEffect(() => {
-    api.getMovieReviews(movieId).then(setReviews);
+    api.getMovieReviews(Number(movieId)).then(setReviews);
   }, [movieId]);
 
   return (
