@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import api from 'services/API-service';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(null);
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // const location = useLocation();
-  // console.log('location:', location);
+  const location = useLocation();
+  console.log('location:', location);
 
   const searchQuery = searchParams.get('query') ?? '';
   console.log('searchQuery:', searchQuery);
 
   useEffect(() => {
+    if (searchQuery.trim() === '') return;
     searchQuery && api.getSearchMovies(searchQuery).then(setMovies);
   }, [searchQuery]);
 
@@ -23,8 +24,8 @@ const Movies = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (query.trim === '') {
-      return alert('Input query');
+    if (query.trim() === '') {
+      return alert('Incorrect input');
     }
     api.getSearchMovies(query).then(setMovies);
 
@@ -47,8 +48,14 @@ const Movies = () => {
         ></input>
       </form>
       <ul>
-        {movies.length &&
-          movies.map(({ title, id }) => <li key={id}>{title}</li>)}
+        {movies.length > 0 &&
+          movies.map(({ title, id }) => (
+            <li key={id}>
+              <Link to={`/movies/${id}`} state={{ from: location }}>
+                {title}
+              </Link>
+            </li>
+          ))}
       </ul>
     </>
   );

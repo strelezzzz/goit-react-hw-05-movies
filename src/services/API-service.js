@@ -63,7 +63,7 @@ const getMovieCast = async id => {
     const response = await axios.get(
       `movie/${id}/credits?api_key=${API_KEY}&language=en-US? `
     );
-    const details = await response.data;
+    const details = await response.data.cast;
     return details;
   } catch (error) {
     console.log(error.message);
@@ -76,7 +76,7 @@ const getMovieCast = async id => {
 const getMovieReviews = async id => {
   try {
     const response = await axios.get(`movie/${id}/reviews?api_key=${API_KEY}`);
-    const reviews = response.data;
+    const reviews = response.data.results;
     return reviews;
   } catch (error) {
     console.log(error.message);

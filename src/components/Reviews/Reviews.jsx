@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import api from 'services/API-service';
 
 const Reviews = () => {
-  const movieId = useSearchParams('movieId');
+  const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
-
+  console.log(movieId);
   useEffect(() => {
     api.getMovieReviews(movieId).then(setReviews);
   }, [movieId]);
