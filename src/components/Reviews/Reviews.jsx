@@ -5,7 +5,7 @@ import api from 'services/API-service';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   console.log(typeof movieId);
   useEffect(() => {
     api.getMovieReviews(Number(movieId)).then(setReviews);
@@ -13,17 +13,20 @@ const Reviews = () => {
 
   return (
     <ul>
-      {reviews &&
-        reviews.map(({ athor, content, id }) => (
+      {reviews.length > 0 ? (
+        reviews.map(({ author, content, id }) => (
           <li key={id}>
             {
               <>
-                <h3>Athor:{athor}</h3>
+                <h3>Author:{author}</h3>
                 <p>{content}</p>
               </>
             }
           </li>
-        ))}
+        ))
+      ) : (
+        <p>We don't have any reviews for this movie.</p>
+      )}
     </ul>
   );
 };

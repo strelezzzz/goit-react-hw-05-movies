@@ -15,13 +15,14 @@ const MovieDetails = () => {
   // console.log('movieId:', movieId);
   // const location = useLocation();
   const navigate = useNavigate();
+  const backLinkHref = location.state?.from ?? '/movies';
 
   useEffect(() => {
     api.getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
   const handleGoBack = () => {
-    navigate('/');
+    navigate(backLinkHref);
   };
 
   const { title, genres, overview, poster_path, release_date, vote_average } =
@@ -40,7 +41,7 @@ const MovieDetails = () => {
         {title}({year})
       </h2>
       {poster_path && <img src={imageURL + poster_path} alt={title} />}
-      <p>User Score:{vote_average}</p>
+      <p>User Score:{Math.round(vote_average * 10)}%</p>
 
       <h3>Overview</h3>
       <p>{overview}</p>
@@ -54,11 +55,11 @@ const MovieDetails = () => {
             .join(' ')}
       </p>
       <hr
-      // style={{
-      //   color: 'green',
-      //   backgroundColor: 'red',
-      //   height: 5,
-      // }}
+        style={{
+          color: 'green',
+          backgroundColor: 'red',
+          height: 4,
+        }}
       />
       <p>Additional Information</p>
       <ul>
