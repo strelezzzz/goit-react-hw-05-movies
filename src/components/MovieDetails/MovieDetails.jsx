@@ -7,6 +7,7 @@ import {
   Outlet,
   useNavigate,
 } from 'react-router-dom';
+import noImage from '../../images/noImage.png';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -40,7 +41,11 @@ const MovieDetails = () => {
       <h2>
         {title}({year})
       </h2>
-      {poster_path && <img src={imageURL + poster_path} alt={title} />}
+      {poster_path ? (
+        <img src={imageURL + poster_path} alt={title} />
+      ) : (
+        <img src={noImage} alt={title} />
+      )}
       <p>User Score:{Math.round(vote_average * 10)}%</p>
 
       <h3>Overview</h3>
