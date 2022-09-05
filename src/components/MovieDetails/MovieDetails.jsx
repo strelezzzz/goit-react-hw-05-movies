@@ -1,5 +1,5 @@
 import api from 'services/API-service';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import {
   Link,
   useParams,
@@ -11,9 +11,8 @@ import {
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams('movieId');
-  const location = useLocation;
-  // console.log('movieId:', movieId);
-  // const location = useLocation();
+
+  const location = useLocation();
   const navigate = useNavigate();
   const backLinkHref = location.state?.from ?? '/movies';
 
@@ -64,19 +63,25 @@ const MovieDetails = () => {
       <p>Additional Information</p>
       <ul>
         <li>
-          <Link to={`/movies/${movieId}/cast`} state={{ from: location }}>
+          <Link
+            to={`/movies/${movieId}/cast`}
+            state={{ from: location?.state?.from }}
+          >
             Cast
           </Link>
         </li>
         <li>
-          <Link to={`/movies/${movieId}/reviews`} state={{ from: location }}>
+          <Link
+            to={`/movies/${movieId}/reviews`}
+            state={{ from: location?.state?.from }}
+          >
             Reviews
           </Link>
         </li>
       </ul>
+      <hr />
 
       <Outlet />
-      <hr />
     </>
   );
 };
