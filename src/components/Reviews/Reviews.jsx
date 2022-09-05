@@ -6,7 +6,7 @@ import api from 'services/API-service';
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-  console.log(typeof movieId);
+  // console.log(typeof movieId);
   useEffect(() => {
     api.getMovieReviews(Number(movieId)).then(setReviews);
   }, [movieId]);

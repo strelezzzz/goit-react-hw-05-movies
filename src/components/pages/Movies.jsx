@@ -8,10 +8,10 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams('');
 
   const location = useLocation();
-  console.log('location:', location);
+  // console.log('location:', location);
 
   const searchQuery = searchParams.get('query') ?? '';
-  console.log('searchQuery:', searchQuery);
+  // console.log('searchQuery:', searchQuery);
 
   useEffect(() => {
     if (searchQuery.trim() === '') return;

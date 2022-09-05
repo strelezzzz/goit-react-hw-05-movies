@@ -33,6 +33,7 @@ const MovieDetails = () => {
 
   return (
     <>
+      {!movie && <h3>Loading ... </h3>}
       <button type="button" onClick={handleGoBack}>
         Go back
       </button>
@@ -63,25 +64,20 @@ const MovieDetails = () => {
       <p>Additional Information</p>
       <ul>
         <li>
-          <Link
-            to={`/movies/${movieId}/cast`}
-            state={{ from: location?.state?.from }}
-          >
+          <Link to={`cast`} state={{ from: location?.state?.from }}>
             Cast
           </Link>
         </li>
         <li>
-          <Link
-            to={`/movies/${movieId}/reviews`}
-            state={{ from: location?.state?.from }}
-          >
+          <Link to={`reviews`} state={{ from: location?.state?.from }}>
             Reviews
           </Link>
         </li>
       </ul>
       <hr />
-
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
